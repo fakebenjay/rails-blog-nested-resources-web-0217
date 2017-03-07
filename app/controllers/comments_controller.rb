@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to @post
     else
-      flash.now[:danger] = "That's a shitty comment. Say something less stupid."
+      redirect_to @post, :flash => { :error => "That's a shitty comment. Say something less stupid." }
     end
   end
 
