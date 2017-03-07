@@ -2,8 +2,29 @@
 
 <h3>Title:</h3>
 <%= @post.name %>
+
 <h3>Content:</h3>
 <%= @post.content %>
+
+<h3>Comments (god help you):</h3>
+<% @post.comments.each do |c| %>
+  <p><%= c.content %>
+  <small><%= c.created_at %></small></p>
+<% end %>
+
+<%= form_for [@post, Comment.new] do |f| %>
+  <div class="field">
+    <em><%= f.label "You know you want to fight on the internet" %></em><br>
+    <%= f.text_area :content, :id => "Content" %><br>
+    <%= f.hidden_field :post_id, :value => @post.id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>
+
 <h3>Tags:</h3>
 <ul>
   <% @post.tags.each do |tag| %>
